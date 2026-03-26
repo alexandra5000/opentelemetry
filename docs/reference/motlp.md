@@ -59,6 +59,65 @@ For {{ech}} deployments, {{motlp}} is currently supported in the following cloud
 Support for additional regions and cloud providers is in progress and will be expanded over time. 
 :::
 
+## Authentication
+
+The {{motlp}} authenticates clients using {{es}} API keys with the `ingest` application privilege.
+
+:::{note}
+The legacy API keys with the `apm` application privilege continue to work for backward compatibility, but they don't support pipeline-scoped access.
+:::
+
+### Create an API key for {{motlp}}
+
+You can create an API key from the {{kib}} UI or using the {{es}}'s [create API key](/docs/api/doc/elasticsearch/operation/operation-security-create-api-key.md).
+
+#### Unrestricted key
+
+The following is an example of an API key with access to all pipelines:
+
+```bash
+POST /_security/api_key
+{
+  "name": "my-motlp-api-key",
+  "role_descriptors": {
+    "motlp_write_role": {
+      "applications": [
+        {
+          "application": "ingest",
+          "privileges": ["write"],
+          "resources": ["*"]
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Pipeline-scoped key
+
+The following is an example of an API key restricted to a specific pipeline. You can use one when you want to limit a client, such as an {{product.elastic-agent}} managed by {{product.fleet}}, to ingesting into a single agent policy pipeline:
+
+```bash
+POST /_security/api_key
+{
+  "name": "fleet_agent_policy_123-api-key",
+  "expiration": "1d",
+  "role_descriptors": {
+    "motlp_pipeline_write_role": {
+      "applications": [
+        {
+          "application": "ingest",
+          "privileges": ["write"],
+          "resources": ["pipeline:.fleet_agent_policy_1"]
+        }
+      ]
+    }
+  }
+}
+```
+
+The `pipeline:` prefix in the resource name restricts the key to a named pipeline. To grant access to multiple pipelines, list multiple resources in the `resources` array.
+
 ## Send data to Elastic
 
 To send data to Elastic through the {{motlp}}, follow the [Send data to the Elastic Cloud Managed OTLP Endpoint](docs-content://solutions/observability/get-started/quickstart-elastic-cloud-otel-endpoint.md) quickstart.
