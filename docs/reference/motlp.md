@@ -69,7 +69,7 @@ The legacy API keys with the `apm` application privilege continue to work for ba
 
 ### Create an API key for {{motlp}}
 
-You can create an API key from the {{kib}} UI or using the {{es}}'s [create API key](/docs/api/doc/elasticsearch/operation/operation-security-create-api-key.md).
+You can create an API key from the {{kib}} UI or using the {{es}} [create API key API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key).
 
 #### Unrestricted key
 
