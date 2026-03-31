@@ -16,3 +16,54 @@ Alternatively, you can retrieve the endpoint from the **Manage project** page an
 4. Copy the public endpoint value.
 ::::
 :::::
+
+You can also create an API key manually from the {{kib}} UI or using the {{es}} [create API key API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key).
+
+::::{dropdown} Unrestricted key
+
+The following is an example of an API key with access to all pipelines:
+
+```bash
+POST /_security/api_key
+{
+  "name": "my-motlp-api-key",
+  "role_descriptors": {
+    "motlp_write_role": {
+      "applications": [
+        {
+          "application": "ingest",
+          "privileges": ["write"],
+          "resources": ["*"]
+        }
+      ]
+    }
+  }
+}
+```
+::::
+
+::::{dropdown} Pipeline-scoped key
+
+The following is an example of an API key restricted to a specific pipeline. You can use one when you want to limit a client, such as an {{product.elastic-agent}} managed by {{product.fleet}}, to ingesting into a single agent policy pipeline:
+
+```bash
+POST /_security/api_key
+{
+  "name": "fleet_agent_policy_123-api-key",
+  "expiration": "1d",
+  "role_descriptors": {
+    "motlp_pipeline_write_role": {
+      "applications": [
+        {
+          "application": "ingest",
+          "privileges": ["write"],
+          "resources": ["pipeline:.fleet_agent_policy_1"]
+        }
+      ]
+    }
+  }
+}
+```
+
+The `pipeline:` prefix in the resource name restricts the key to a named pipeline. To grant access to multiple pipelines, list multiple resources in the `resources` array.
+::::

@@ -46,54 +46,7 @@ The legacy API keys with the `apm` application privilege continue to work for ba
 
 ### Create an API key for {{motlp}}
 
-You can create an API key from the {{kib}} UI or using the {{es}} [create API key API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key).
-
-#### Unrestricted key
-
-The following is an example of an API key with access to all pipelines:
-
-```bash
-POST /_security/api_key
-{
-  "name": "my-motlp-api-key",
-  "role_descriptors": {
-    "motlp_write_role": {
-      "applications": [
-        {
-          "application": "ingest",
-          "privileges": ["write"],
-          "resources": ["*"]
-        }
-      ]
-    }
-  }
-}
-```
-
-#### Pipeline-scoped key
-
-The following is an example of an API key restricted to a specific pipeline. You can use one when you want to limit a client, such as an {{product.elastic-agent}} managed by {{product.fleet}}, to ingesting into a single agent policy pipeline:
-
-```bash
-POST /_security/api_key
-{
-  "name": "fleet_agent_policy_123-api-key",
-  "expiration": "1d",
-  "role_descriptors": {
-    "motlp_pipeline_write_role": {
-      "applications": [
-        {
-          "application": "ingest",
-          "privileges": ["write"],
-          "resources": ["pipeline:.fleet_agent_policy_1"]
-        }
-      ]
-    }
-  }
-}
-```
-
-The `pipeline:` prefix in the resource name restricts the key to a named pipeline. To grant access to multiple pipelines, list multiple resources in the `resources` array.
+You can create an API key from the {{kib}} UI or using the {{es}} [create API key API](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-security-create-api-key). For step-by-step instructions, refer to [Find your {{motlp}} endpoint](#find-your-motlp-endpoint).
 
 ## Send data to the Managed OTLP Endpoint
 
