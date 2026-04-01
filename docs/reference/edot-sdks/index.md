@@ -34,6 +34,10 @@ EDOT SDKs are available for the following programming languages and platforms:
 
 This table provides an overview of the features available in the {{edot}} (EDOT) SDKs across different programming languages.
 
+% The following table is automatically generated from the EDOT SDKs feature data.
+% Automation is handled by /scripts/tools.py, which reads /docs/reference/edot-sdks/features.yml
+% and generates the table using a Jinja2 template.
+
 % start:edot-features
 
 | Feature | .NET | Java | Node.js | PHP | Python | Android | iOS |
@@ -49,7 +53,7 @@ This table provides an overview of the features available in the {{edot}} (EDOT)
 | **[Metrics collection](https://opentelemetry.io/docs/concepts/signals/metrics/)** | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | 𝐓 v0.7+ | 
 | Custom metrics | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | 𝐓 v0.7+ | 
 | Agent health monitoring | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | 
-| [Runtime metrics](https://opentelemetry.io/docs/specs/semconv/runtime/) | ✅ 1.0+ | ✅ 1.0+ | 𝐓 1.0+ | ❌  | ❌  | ❌  | ❌  | 
+| [Runtime metrics](https://opentelemetry.io/docs/specs/semconv/runtime/) | ✅ 1.0+[^2] | ✅ 1.0+[^2] | 𝐓 1.0+[^2] | ❌  | ❌  | ❌  | ❌  |
 | **Capturing errors / exceptions** | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ 1.0+ | ✅ v1.0+ | 
 | Crash reporting | ➖  | ➖  | ➖  | ➖  | ➖  | ❌  | ✅ v1.0+ | 
 | **Central configuration** | ❌  | 𝐓 1.5.0+ | 𝐓 1.2.0+ | 𝐓 1.1.0+ | 𝐓 1.4.0+ | 𝐓 1.2.0+ | 𝐓 1.4.0+ | 
@@ -66,6 +70,7 @@ This table provides an overview of the features available in the {{edot}} (EDOT)
 
 
 [^1]: CA-signed certificates only
+[^2]: Runtime metrics can be ingested and used in custom dashboards, but visualization in the {{product.apm}} **Service > Metrics** tab is currently limited. Refer to [Runtime metrics limitations](../compatibility/limitations.md#runtime-metrics) for more information.
 
 % end:edot-features
 
