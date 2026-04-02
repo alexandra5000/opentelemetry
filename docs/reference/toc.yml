@@ -22,4 +22,5 @@ toc:
   - toc: motlp
   - file: data-streams.md
   - file: central-configuration.md
+  - toc: edot-sdks
   - toc: edot-cloud-forwarder
